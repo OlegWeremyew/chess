@@ -1,4 +1,5 @@
 import { NUMBER_ONE, NUMBER_TWO, ROW_LENGTH, ZERO_VALUE } from '../constants';
+import { Nullable } from '../types/Nullable';
 
 import { Cell } from './Cell';
 import { Colors } from './Colors';
@@ -26,71 +27,68 @@ export class Board {
     }
   }
 
+  public hightLightCells(selectedCell: Nullable<Cell>): void {
+    for (let i = 0; i < this.cells.length; i += 1) {
+      const row = this.cells[i];
+      for (let j = 0; j < row.length; j += 1) {
+        const target = row[j];
+        target.available = !!selectedCell?.figure?.canMove(target);
+      }
+    }
+  }
+
+  public getCopyBoard(): Board {
+    const newBoard = new Board();
+    newBoard.cells = this.cells;
+    return newBoard;
+  }
+
   public getCell(x: number, y: number): Cell {
     return this.cells[y][x];
   }
 
   private addPawns(): void {
-    // eslint-disable-next-line @typescript-eslint/no-magic-numbers
     for (let i = 0; i < 8; i += 1) {
-      // eslint-disable-next-line @typescript-eslint/no-magic-numbers,no-new
       new Pawn(Colors.BLACK, this.getCell(i, 1));
-      // eslint-disable-next-line @typescript-eslint/no-magic-numbers,no-new
       new Pawn(Colors.WHITE, this.getCell(i, 6));
     }
   }
 
   private addKings(): void {
-    // eslint-disable-next-line @typescript-eslint/no-magic-numbers,no-new
     new King(Colors.BLACK, this.getCell(3, 0));
-    // eslint-disable-next-line @typescript-eslint/no-magic-numbers,no-new
     new King(Colors.WHITE, this.getCell(4, 7));
   }
 
-  private addQuuens(): void {
-    // eslint-disable-next-line @typescript-eslint/no-magic-numbers,no-new
+  private addQueens(): void {
     new Queen(Colors.BLACK, this.getCell(4, 0));
-    // eslint-disable-next-line @typescript-eslint/no-magic-numbers,no-new
     new Queen(Colors.WHITE, this.getCell(3, 7));
   }
 
   private addBishops(): void {
-    // eslint-disable-next-line @typescript-eslint/no-magic-numbers,no-new
     new Bishop(Colors.BLACK, this.getCell(2, 0));
-    // eslint-disable-next-line @typescript-eslint/no-magic-numbers,no-new
     new Bishop(Colors.BLACK, this.getCell(5, 0));
-    // eslint-disable-next-line @typescript-eslint/no-magic-numbers,no-new
     new Bishop(Colors.WHITE, this.getCell(2, 7));
-    // eslint-disable-next-line @typescript-eslint/no-magic-numbers,no-new
     new Bishop(Colors.WHITE, this.getCell(5, 7));
   }
 
   private addKnights(): void {
-    // eslint-disable-next-line @typescript-eslint/no-magic-numbers,no-new
     new Knight(Colors.BLACK, this.getCell(1, 0));
-    // eslint-disable-next-line @typescript-eslint/no-magic-numbers,no-new
     new Knight(Colors.BLACK, this.getCell(6, 0));
-    // eslint-disable-next-line @typescript-eslint/no-magic-numbers,no-new
     new Knight(Colors.WHITE, this.getCell(1, 7));
-    // eslint-disable-next-line @typescript-eslint/no-magic-numbers,no-new
     new Knight(Colors.WHITE, this.getCell(6, 7));
   }
 
   private addRooks(): void {
-    // eslint-disable-next-line @typescript-eslint/no-magic-numbers,no-new
     new Rook(Colors.BLACK, this.getCell(0, 0));
-    // eslint-disable-next-line @typescript-eslint/no-magic-numbers,no-new
     new Rook(Colors.BLACK, this.getCell(7, 0));
-    // eslint-disable-next-line @typescript-eslint/no-magic-numbers,no-new
     new Rook(Colors.WHITE, this.getCell(0, 7));
-    // eslint-disable-next-line @typescript-eslint/no-magic-numbers,no-new
     new Rook(Colors.WHITE, this.getCell(7, 7));
   }
 
   public addFigures(): void {
     this.addPawns();
     this.addKings();
-    this.addQuuens();
+    this.addQueens();
     this.addKnights();
     this.addBishops();
     this.addRooks();

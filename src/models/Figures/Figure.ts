@@ -33,10 +33,10 @@ export class Figure {
     this.id = Math.random();
   }
 
-  /* // eslint-disable-next-line class-methods-use-this
   canMove(target: Cell): boolean {
-    return true;
+    if (target.figure?.color === this.color) return false;
+    return target.figure?.name !== FigureName.KING;
   }
 
-  moveFigure(target: Cell): void {} */
+  moveFigure(target: Cell): void {}
 }

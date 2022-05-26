@@ -41,9 +41,15 @@
     "react/jsx-closing-tag-location": 2,
     "react/jsx-closing-bracket-location": "off",
     "no-alert": "error",
+    "no-new": "off",
+    "jsx-a11y/no-static-element-interactions": "off",
+    "jsx-a11y/click-events-have-key-events": "off",
     "no-debugger": "error",
     "no-plusplus": "error",
+    "sx-a11y/click-events-have-key-events": "off",
     "no-magic-numbers": "off",
+    "no-param-reassign": "off",
+    "react/no-array-index-key": "off",
     "default-param-last": "off",
     "no-use-before-define": "off",
     "react/jsx-max-props-per-line": [
@@ -89,7 +95,7 @@
       "error"
     ],
     "@typescript-eslint/no-magic-numbers": [
-      "error",
+      "off",
       {
         "ignoreEnums": true,
         "ignoreNumericLiteralTypes": true
