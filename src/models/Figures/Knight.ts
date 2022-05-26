@@ -18,6 +18,8 @@ export class Knight extends Figure {
     if (!super.canMove(target)) {
       return false;
     }
-    return true;
+    const diagonalX: number = Math.abs(this.cell.x - target.x);
+    const diagonalY: number = Math.abs(this.cell.y - target.y);
+    return (diagonalX === 1 && diagonalY === 2) || (diagonalX === 2 && diagonalY === 1);
   }
 }

@@ -38,5 +38,8 @@ export class Figure {
     return target.figure?.name !== FigureName.KING;
   }
 
-  moveFigure(target: Cell): void {}
+  // eslint-disable-next-line class-methods-use-this
+  moveFigure(target: Cell): void {
+    console.log(target);
+  }
 }

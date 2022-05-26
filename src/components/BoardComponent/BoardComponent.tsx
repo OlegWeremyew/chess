@@ -4,6 +4,7 @@ import '../../App/App.css';
 
 import { Board } from '../../models/Board';
 import { Cell } from '../../models/Cell';
+import { Player } from '../../models/Player';
 import { Nullable } from '../../types/Nullable';
 import { ReturnComponentType } from '../../types/ReturnComponentType';
 import CellComponent from '../CellComponent/CellComponent';
@@ -11,11 +12,15 @@ import CellComponent from '../CellComponent/CellComponent';
 interface BoardProps {
   board: Board;
   setBoard: (board: Board) => void;
+  currentPlayer: Nullable<Player>;
+  swapPlayer: () => void;
 }
 
 export const BoardComponent: React.FC<BoardProps> = ({
   board,
   setBoard,
+  currentPlayer,
+  swapPlayer,
 }): ReturnComponentType => {
   const x = (): void => {
     setBoard(new Board());
@@ -31,9 +36,10 @@ export const BoardComponent: React.FC<BoardProps> = ({
   const clickOnCell = (cell: Cell): void => {
     if (selectedCell && selectedCell !== cell && selectedCell.figure?.canMove(cell)) {
       selectedCell.moveFigure(cell);
+      swapPlayer();
       setSelectedCell(null);
       updateBoard();
-    } else {
+    } else if (cell.figure?.color === currentPlayer?.color) {
       setSelectedCell(cell);
     }
   };
