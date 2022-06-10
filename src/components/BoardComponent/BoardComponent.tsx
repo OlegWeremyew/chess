@@ -1,15 +1,11 @@
 import React, { FC, useEffect, useState } from 'react';
 
-import { Board, Cell, Player } from '../../models';
+import { Cell } from '../../models';
 import { Nullable, ReturnComponentType } from '../../types';
-import { CellComponent } from '../CellComponent';
 
-interface BoardProps {
-  board: Board;
-  setBoard: (board: Board) => void;
-  currentPlayer: Nullable<Player>;
-  swapPlayer: () => void;
-}
+import { CellComponent } from './CellComponent';
+import { BoardBlock } from './components';
+import { BoardProps } from './types';
 
 export const BoardComponent: FC<BoardProps> = ({
   board,
@@ -46,8 +42,8 @@ export const BoardComponent: FC<BoardProps> = ({
 
   return (
     <div>
-      <h3>Current chess player: {currentPlayer?.color}</h3>
-      <div className="board">
+      <h3>Current player: {currentPlayer?.color}</h3>
+      <BoardBlock>
         {board.cells.map((row, index) => (
           <React.Fragment key={index}>
             {row.map(cell => (
@@ -60,7 +56,7 @@ export const BoardComponent: FC<BoardProps> = ({
             ))}
           </React.Fragment>
         ))}
-      </div>
+      </BoardBlock>
     </div>
   );
 };

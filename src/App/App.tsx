@@ -6,6 +6,8 @@ import { Board, Player } from '../models';
 import { Colors } from '../models/enum';
 import { Nullable, ReturnComponentType } from '../types';
 
+import { AppContainer } from './components';
+
 export const App = (): ReturnComponentType => {
   const [board, setBoard] = useState(new Board());
   const [whitePlayer, setWhitePlayer] = useState(new Player(Colors.WHITE));
@@ -29,7 +31,7 @@ export const App = (): ReturnComponentType => {
   }, []);
 
   return (
-    <div className="app">
+    <AppContainer>
       <Timer restart={restart} currentPlayer={currentPlayer} />
       <BoardComponent
         board={board}
@@ -38,9 +40,9 @@ export const App = (): ReturnComponentType => {
         swapPlayer={swapPlayer}
       />
       <div>
-        <LostFigures title="Black figures" figures={board.lostBlackFigures} />
-        <LostFigures title="White figures" figures={board.lostWhiteFigures} />
+        <LostFigures title="black figures" figures={board.lostBlackFigures} />
+        <LostFigures title="white figures" figures={board.lostWhiteFigures} />
       </div>
-    </div>
+    </AppContainer>
   );
 };

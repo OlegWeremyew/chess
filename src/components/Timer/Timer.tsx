@@ -1,13 +1,9 @@
 import React, { FC, useEffect, useRef, useState } from 'react';
 
-import { Player } from '../../models';
 import { Colors } from '../../models/enum';
 import { Nullable, ReturnComponentType } from '../../types';
 
-interface TimerProps {
-  currentPlayer: Nullable<Player>;
-  restart: () => void;
-}
+import { TimerProps } from './types';
 
 export const Timer: FC<TimerProps> = ({
   currentPlayer,
