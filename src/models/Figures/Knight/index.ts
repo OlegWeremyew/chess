@@ -1,0 +1,1 @@
+export { Knight } from './Knight';

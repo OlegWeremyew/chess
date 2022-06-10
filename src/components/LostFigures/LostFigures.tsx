@@ -1,0 +1,26 @@
+import React, { FC } from 'react';
+
+import { Figure } from '../../models/figures';
+import { ReturnComponentType } from '../../types';
+
+interface LostFiguresProps {
+  title: string;
+  figures: Figure[];
+}
+
+export const LostFigures: FC<LostFiguresProps> = ({
+  title,
+  figures,
+}): ReturnComponentType => (
+  <div className="lost">
+    <h3>{title}</h3>
+    {figures.map(figure => (
+      <div key={figure.id}>
+        {figure.name}{' '}
+        {figure.logo && (
+          <img width={20} height={20} src={figure.logo} alt={figure.logo} />
+        )}
+      </div>
+    ))}
+  </div>
+);

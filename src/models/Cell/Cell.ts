@@ -1,6 +1,7 @@
-import { Board } from './Board';
-import { Colors } from './Colors';
-import { Figure } from './figures/Figure';
+import { Nullable } from '../../types';
+import { Board } from '../Board';
+import { Colors } from '../enum';
+import { Figure } from '../figures';
 
 export class Cell {
   readonly x: number;
@@ -9,13 +10,13 @@ export class Cell {
 
   readonly color: Colors;
 
-  figure: Figure | null;
+  figure: Nullable<Figure>;
 
   board: Board;
 
-  available: boolean; // Можешь ли переместиться
+  available: boolean;
 
-  id: number; // Для реакт ключей
+  id: number;
 
   constructor(board: Board, x: number, y: number, color: Colors, figure: Figure | null) {
     this.x = x;

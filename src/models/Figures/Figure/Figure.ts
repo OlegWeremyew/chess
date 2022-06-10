@@ -1,21 +1,14 @@
-import logo from '../../assets/black-king.png';
-import { Cell } from '../Cell';
-import { Colors } from '../Colors';
+import logo from '../../../assets/black-king.png';
+import { Nullable } from '../../../types';
+import { Cell } from '../../Cell';
+import { Colors } from '../../enum';
 
-export enum FigureNames {
-  FIGURE = 'Фигура',
-  KING = 'Король',
-  KNIGHT = 'Конь',
-  PAWN = 'Пешка',
-  QUEEN = 'Ферзь',
-  ROOK = 'Ладья',
-  BISHOP = 'Слон',
-}
+import { FigureNames } from './enum';
 
 export class Figure {
   color: Colors;
 
-  logo: typeof logo | null;
+  logo: Nullable<typeof logo>;
 
   cell: Cell;
 

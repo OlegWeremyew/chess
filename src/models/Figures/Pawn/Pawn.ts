@@ -1,9 +1,9 @@
-import blackLogo from '../../assets/black-pawn.png';
-import whiteLogo from '../../assets/white-pawn.png';
-import { Cell } from '../Cell';
-import { Colors } from '../Colors';
-
-import { Figure, FigureNames } from './Figure';
+import blackLogo from '../../../assets/black-pawn.png';
+import whiteLogo from '../../../assets/white-pawn.png';
+import { Cell } from '../../Cell';
+import { Colors } from '../../enum';
+import { Figure } from '../Figure';
+import { FigureNames } from '../Figure/enum';
 
 export class Pawn extends Figure {
   isFirstStep: boolean = true;

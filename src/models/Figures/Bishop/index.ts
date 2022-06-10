@@ -1,0 +1,1 @@
+export { Bishop } from './Bishop';
