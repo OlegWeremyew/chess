@@ -46,6 +46,7 @@
     "jsx-a11y/click-events-have-key-events": "off",
     "no-debugger": "error",
     "no-plusplus": "error",
+    "class-methods-use-this": "off",
     "sx-a11y/click-events-have-key-events": "off",
     "no-magic-numbers": "off",
     "no-param-reassign": "off",
@@ -55,7 +56,7 @@
     "react/jsx-max-props-per-line": [
       2,
       {
-        "maximum": 2,
+        "maximum": 4,
         "when": "always"
       }
     ],
@@ -89,9 +90,6 @@
       }
     ],
     "@typescript-eslint/no-shadow": [
-      "error"
-    ],
-    "@typescript-eslint/no-unused-vars": [
       "error"
     ],
     "@typescript-eslint/no-magic-numbers": [

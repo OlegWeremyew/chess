@@ -1,16 +1,15 @@
-// @ts-ignore
-import logo from '../../assets/black-bishop.png';
+import logo from '../../assets/black-king.png';
 import { Cell } from '../Cell';
 import { Colors } from '../Colors';
 
-export enum FigureName {
-  FIGURE = '',
-  KING = 'KING',
-  KNIGHT = 'KNIGHT',
-  PAWN = 'PAWN',
-  QUEEN = 'QUEEN',
-  BISHOP = 'BISHOP',
-  ROOK = 'ROOK',
+export enum FigureNames {
+  FIGURE = 'Фигура',
+  KING = 'Король',
+  KNIGHT = 'Конь',
+  PAWN = 'Пешка',
+  QUEEN = 'Ферзь',
+  ROOK = 'Ладья',
+  BISHOP = 'Слон',
 }
 
 export class Figure {
@@ -20,7 +19,7 @@ export class Figure {
 
   cell: Cell;
 
-  name: FigureName;
+  name: FigureNames;
 
   id: number;
 
@@ -29,17 +28,15 @@ export class Figure {
     this.cell = cell;
     this.cell.figure = this;
     this.logo = null;
-    this.name = FigureName.FIGURE;
+    this.name = FigureNames.FIGURE;
     this.id = Math.random();
   }
 
   canMove(target: Cell): boolean {
     if (target.figure?.color === this.color) return false;
-    return target.figure?.name !== FigureName.KING;
+    if (target.figure?.name === FigureNames.KING) return false;
+    return true;
   }
 
-  // eslint-disable-next-line class-methods-use-this
-  moveFigure(target: Cell): void {
-    console.log(target);
-  }
+  moveFigure(target: Cell): void {}
 }

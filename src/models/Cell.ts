@@ -1,8 +1,6 @@
-import { Nullable } from '../types/Nullable';
-
 import { Board } from './Board';
 import { Colors } from './Colors';
-import { Figure } from './Figures/Figure';
+import { Figure } from './figures/Figure';
 
 export class Cell {
   readonly x: number;
@@ -11,28 +9,26 @@ export class Cell {
 
   readonly color: Colors;
 
-  figure: Nullable<Figure>;
+  figure: Figure | null;
 
   board: Board;
 
-  available: boolean; // can you do the move or not?
+  available: boolean; // Можешь ли переместиться
 
-  id: number; // for react keys
+  id: number; // Для реакт ключей
 
-  constructor(
-    board: Board,
-    x: number,
-    y: number,
-    color: Colors,
-    figure: Nullable<Figure>,
-  ) {
+  constructor(board: Board, x: number, y: number, color: Colors, figure: Figure | null) {
     this.x = x;
     this.y = y;
-    this.board = board;
     this.color = color;
     this.figure = figure;
+    this.board = board;
     this.available = false;
     this.id = Math.random();
+  }
+
+  isEmpty(): boolean {
+    return this.figure === null;
   }
 
   isEnemy(target: Cell): boolean {
@@ -40,10 +36,6 @@ export class Cell {
       return this.figure?.color !== target.figure.color;
     }
     return false;
-  }
-
-  isEmpty(): boolean {
-    return this.figure === null;
   }
 
   isEmptyVertical(target: Cell): boolean {
@@ -80,12 +72,12 @@ export class Cell {
     const absX = Math.abs(target.x - this.x);
     const absY = Math.abs(target.y - this.y);
     if (absY !== absX) return false;
-    const diagonalY = this.y < target.y ? 1 : -1;
-    const diagonalX = this.x < target.x ? 1 : -1;
+
+    const dy = this.y < target.y ? 1 : -1;
+    const dx = this.x < target.x ? 1 : -1;
 
     for (let i = 1; i < absY; i += 1) {
-      if (!this.board.getCell(this.x + diagonalX * i, this.y + diagonalY * i).isEmpty())
-        return false;
+      if (!this.board.getCell(this.x + dx * i, this.y + dy * i).isEmpty()) return false;
     }
     return true;
   }
@@ -95,8 +87,18 @@ export class Cell {
     this.figure.cell = this;
   }
 
+  addLostFigure(figure: Figure): void {
+    figure.color === Colors.BLACK
+      ? this.board.lostBlackFigures.push(figure)
+      : this.board.lostWhiteFigures.push(figure);
+  }
+
   moveFigure(target: Cell): void {
-    if (this.figure && this.figure.canMove(target)) {
+    if (this.figure && this.figure?.canMove(target)) {
+      this.figure.moveFigure(target);
+      if (target.figure) {
+        this.addLostFigure(target.figure);
+      }
       target.setFigure(this.figure);
       this.figure = null;
     }
